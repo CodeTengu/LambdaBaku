@@ -71,7 +71,7 @@ const savePost = (alteredCuratedItem, i) => {
 exports.handle = (event, context, callback) => {
   console.log('EVENT', event);
 
-  const issueNumber = event.issue_number;
+  const issueNumber = parseInt(event.issue_number, 10);
 
   if (!util.isNumber(issueNumber)) {
     throw new Error('Invalid issue_number');
