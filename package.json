@@ -1,0 +1,18 @@
+{
+  "name": "lambdabaku",
+  "version": "1.0.0",
+  "description": "fuck yeah",
+  "author": "Vinta",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/CodeTengu/lambdabaku.git"
+  },
+  "dependencies": {
+    "aws-sdk": "2.3.11"
+  },
+  "devDependencies": {
+    "eslint": "2.9.0",
+    "eslint-config-airbnb": "9.0.0"
+  }
+}
