@@ -77,10 +77,10 @@ exports.handle = (event, context, callback) => {
     throw new Error('Invalid issue_number');
   }
 
-  loadPreference('curated_api_config')
+  loadPreference('curatedAPIConfig')
   .then((response) => {
     const headers = {
-      Authorization: `Token token="${response.curated_api_config.apiKey}"`,
+      Authorization: `Token token="${response.curatedAPIConfig.apiKey}"`,
     };
 
     // http://support.curated.co/integrations/fetching-issue-data-with-the-api/

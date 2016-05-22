@@ -8,10 +8,10 @@ const fetch = require('node-fetch');
 const loadPreference = require('./dynamodb').loadPreference;
 
 exports.handle = (event, context, callback) => {
-  loadPreference('curated_api_config')
+  loadPreference('curatedAPIConfig')
   .then((response) => {
     const headers = {
-      Authorization: `Token token="${response.curated_api_config.apiKey}"`,
+      Authorization: `Token token="${response.curatedAPIConfig.apiKey}"`,
     };
 
     // http://support.curated.co/integrations/fetching-issue-data-with-the-api/
