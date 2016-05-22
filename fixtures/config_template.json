@@ -11,6 +11,15 @@
     {
       "PutRequest": {
         "Item": {
+          "name": { "S": "githubAPIConfig" },
+          "username": { "S": "xxx" },
+          "accessToken": { "S": "xxx" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
           "name": { "S": "twitterAPIConfig" },
           "consumerKey": { "S": "xxx" },
           "consumerSecret": { "S": "xxx" },
