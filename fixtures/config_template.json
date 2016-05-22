@@ -1,0 +1,23 @@
+{
+  "CodeTengu_Preference": [
+    {
+      "PutRequest": {
+        "Item": {
+          "name": { "S": "curatedAPIConfig" },
+          "apiKey": { "S": "xxx" }
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "name": { "S": "twitterAPIConfig" },
+          "consumerKey": { "S": "xxx" },
+          "consumerSecret": { "S": "xxx" },
+          "accessToken": { "S": "xxx" },
+          "accessTokenSecret": { "S": "xxx" }
+        }
+      }
+    }
+  ]
+}
