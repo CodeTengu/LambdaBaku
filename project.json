@@ -1,5 +1,5 @@
 {
-  "name": "LambdaBaku",
+  "name": "lambdabaku",
   "description": "a CodeTengu project",
   "role": "arn:aws:iam::004615714446:role/lambdabaku_role",
   "runtime": "nodejs4.3",
