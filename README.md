@@ -11,11 +11,9 @@
 $ curl https://raw.githubusercontent.com/apex/apex/master/install.sh | sh
 
 $ apex deploy
-$ apex invoke syncPublishedIssues --logs
-$ echo -n '{"issue_number": 42}' | apex invoke syncIssue --logs
-$ echo -n '{"issue_number": 42}' | apex invoke postToTwitter --logs
-
-$ apex build postToTwitter > out.zip
+$ apex invoke sync_published_issues --logs
+$ echo -n '{"issue_number": 42}' | apex invoke sync_issue --logs
+$ echo -n '{"issue_number": 42}' | apex invoke post_to_twitter --logs
 ```
 
 References:
