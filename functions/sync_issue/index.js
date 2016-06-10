@@ -5,8 +5,8 @@ const util = require('util');
 const fetch = require('node-fetch');
 const string = require('string');
 
-const dynamodbClient = require('./dynamodb').client;
-const loadPreference = require('./dynamodb').loadPreference;
+const dynamodbClient = require('./libs/dynamodb').client;
+const loadPreference = require('./libs/dynamodb').loadPreference;
 
 const saveIssue = (curatedIssue) => {
   // primary key -> number
