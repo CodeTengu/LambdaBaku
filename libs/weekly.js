@@ -2,15 +2,13 @@
 
 const util = require('util');
 
-const aws = require('aws-sdk');
 const string = require('string');
 
-const dynamodb = new aws.DynamoDB({ apiVersion: '2012-08-10', region: 'ap-northeast-1' });
-const dynamodbClient = new aws.DynamoDB.DocumentClient({ service: dynamodb });
+const utils = require('./utils');
 
 class CodeTenguWeekly {
   constructor() {
-    this.dynamodbClient = dynamodbClient;
+    this.dynamodbClient = utils.dynamodbClient;
   }
 
   getIssues() {
@@ -139,7 +137,7 @@ class CodeTenguWeekly {
         Item: issue,
       };
 
-      dynamodbClient.put(params, (err, data) => {
+      this.dynamodbClient.put(params, (err, data) => {
         if (err) {
           console.log('FAIL', params);
           console.log(util.inspect(err));
@@ -166,20 +164,43 @@ class CodeTenguWeekly {
         contentHTML: curatedPost.description,
         type: curatedPost.type,
         url: curatedPost.url || curatedPost.issue.url,
+        permalink: curatedPost.url || curatedPost.issue.url,
         createdAt: parseInt(new Date(curatedPost.issue.published_at).getTime() / 1000, 10),
         randomKey: Math.random(),
       };
-
-      if (curatedPost.footer) {
-        post.footer = curatedPost.footer;
-      }
 
       const params = {
         TableName: 'CodeTengu_WeeklyPost',
         Item: post,
       };
 
-      dynamodbClient.put(params, (err, data) => {
+      this.dynamodbClient.put(params, (err, data) => {
+        if (err) {
+          console.log('FAIL', params);
+          console.log(util.inspect(err));
+
+          reject(err);
+        } else {
+          console.log('DATA', data);
+
+          resolve(post);
+        }
+      });
+    });
+  }
+
+  updatePost(issueNumber, id, attributeUpdates) {
+    return new Promise((resolve, reject) => {
+      const params = {
+        TableName: 'CodeTengu_WeeklyPost',
+        Key: {
+          issueNumber,
+          id,
+        },
+        AttributeUpdates: attributeUpdates,
+      };
+
+      this.dynamodbClient.update(params, (err, data) => {
         if (err) {
           console.log('FAIL', params);
           console.log(util.inspect(err));
