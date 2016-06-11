@@ -4,25 +4,24 @@ const util = require('util');
 
 const aws = require('aws-sdk');
 
+const lambda = new aws.Lambda({ apiVersion: '2015-03-31', region: 'ap-northeast-1' });
 const dynamodb = new aws.DynamoDB({ apiVersion: '2012-08-10', region: 'ap-northeast-1' });
 const dynamodbClient = new aws.DynamoDB.DocumentClient({ service: dynamodb });
 
 function loadPreference(keys) {
-  const realKeys = [];
-
-  if (util.isString(keys)) {
-    realKeys.push({ name: keys });
-  } else if (util.isArray(keys)) {
-    for (const keyName of keys) {
-      realKeys.push({ name: keyName });
-    }
-  } else {
-    throw new Error('Invalid keys');
-  }
-
-  console.log('REALKEYS', realKeys);
-
   return new Promise((resolve, reject) => {
+    const realKeys = [];
+
+    if (util.isString(keys)) {
+      realKeys.push({ name: keys });
+    } else if (util.isArray(keys)) {
+      for (const keyName of keys) {
+        realKeys.push({ name: keyName });
+      }
+    } else {
+      throw new Error('Invalid keys');
+    }
+
     const params = {
       RequestItems: {
         CodeTengu_Preference: {
@@ -51,6 +50,7 @@ function loadPreference(keys) {
 }
 
 module.exports = {
-  client: dynamodbClient,
+  lambda,
+  dynamodbClient,
   loadPreference,
 };
