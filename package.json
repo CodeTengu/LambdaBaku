@@ -9,10 +9,10 @@
     "url": "git://github.com/CodeTengu/lambdabaku.git"
   },
   "dependencies": {
-    "aws-sdk": "2.3.11"
+    "aws-sdk": "2.3.19"
   },
   "devDependencies": {
-    "eslint": "2.9.0",
-    "eslint-config-airbnb": "9.0.0"
+    "eslint": "2.12.0",
+    "eslint-config-airbnb": "9.0.1"
   }
 }
