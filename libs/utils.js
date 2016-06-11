@@ -49,8 +49,17 @@ function loadPreference(keys) {
   });
 }
 
+function checkHTTPStatus(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  }
+
+  throw new Error(`HTTP ${response.status}`);
+}
+
 module.exports = {
   lambda,
   dynamodbClient,
   loadPreference,
+  checkHTTPStatus,
 };
