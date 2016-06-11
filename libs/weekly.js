@@ -57,9 +57,9 @@ class CodeTenguWeekly {
 
           reject(err);
         } else {
-          const response = data.Item;
+          const issue = data.Item;
 
-          resolve(response);
+          resolve(issue);
         }
       });
     });
@@ -83,9 +83,9 @@ class CodeTenguWeekly {
 
           reject(err);
         } else {
-          const response = data.Items;
+          const posts = data.Items;
 
-          resolve(response);
+          resolve(posts);
         }
       });
     });
@@ -110,9 +110,9 @@ class CodeTenguWeekly {
 
           reject(err);
         } else {
-          const response = data.Items;
+          const posts = data.Items;
 
-          resolve(response);
+          resolve(posts);
         }
       });
     });
@@ -144,7 +144,9 @@ class CodeTenguWeekly {
 
           reject(err);
         } else {
-          resolve(data);
+          console.log('DATA', data);
+
+          resolve(issue);
         }
       });
     });
