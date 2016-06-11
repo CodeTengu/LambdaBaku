@@ -26,7 +26,7 @@ References:
 
 ## HTTP API
 
-You must add to each request a custom header named `x-api-key`. It's now in private beta, you may need to contact us for getting an API Key.
+You must add to each request a custom header named `x-api-key`. It's now in private beta, you may need to contact us for getting an API key.
 
 - https://lfsfm1czqg.execute-api.ap-northeast-1.amazonaws.com/v1/issues
 - https://lfsfm1czqg.execute-api.ap-northeast-1.amazonaws.com/v1/issues/1
