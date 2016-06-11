@@ -1,31 +1,8 @@
 'use strict';
 
-const util = require('util');
-
 const fetch = require('node-fetch');
 
 const utils = require('./libs/utils');
-
-function invokeSyncIssue(issueNumber) {
-  return new Promise((resolve, reject) => {
-    const params = {
-      FunctionName: 'lambdabaku_sync_issue',
-      InvocationType: 'Event', // asynchronous execution
-      Payload: JSON.stringify({ issue_number: issueNumber }),
-    };
-
-    utils.lambda.invoke(params, (err, data) => {
-      if (err) {
-        console.log('FAIL', params);
-        console.log(util.inspect(err));
-
-        reject(err);
-      } else {
-        resolve(data);
-      }
-    });
-  });
-}
 
 exports.handle = (event, context, callback) => {
   utils.loadPreference('curatedAPIConfig')
@@ -44,16 +21,17 @@ exports.handle = (event, context, callback) => {
       const tasks = [];
 
       for (const curatedIssue of curatedIssues.issues) {
-        tasks.push(invokeSyncIssue(curatedIssue.number));
+        const promise = utils.invokeLambdaFunction('lambdabaku_sync_issue', { issue_number: curatedIssue.number });
+        tasks.push(promise);
       }
 
-      Promise.all(tasks)
-      .then((results) => {
-        callback(null, results);
-      })
-      .catch((err) => {
-        callback(err);
-      });
+      return Promise.all(tasks);
+    })
+    .then((results) => {
+      callback(null, results);
+    })
+    .catch((err) => {
+      callback(err);
     });
   });
 };
