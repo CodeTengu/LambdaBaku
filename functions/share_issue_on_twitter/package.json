@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "node-fetch": "1.5.2",
+    "node-fetch": "1.5.3",
     "twit": "2.2.4"
   }
 }

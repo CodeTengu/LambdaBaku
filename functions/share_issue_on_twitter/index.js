@@ -1,34 +1,30 @@
 'use strict';
 
-const util = require('util');
-
 const fetch = require('node-fetch');
 const Twit = require('twit');
 
-const loadPreference = require('./dynamodb').loadPreference;
+const utils = require('./libs/utils');
 
 exports.handle = (event, context, callback) => {
-  console.log('EVENT', event);
-
   const issueNumber = parseInt(event.issue_number, 10);
 
-  if (!util.isNumber(issueNumber)) {
-    throw new Error('Invalid issue_number');
+  if (!Number.isInteger(issueNumber)) {
+    const err = new Error('Invalid issueNumber');
+    callback(err);
   }
 
-  loadPreference(['curatedAPIConfig', 'twitterAPIConfig'])
+  utils.loadPreference(['curatedAPIConfig', 'twitterAPIConfig'])
   .then((response) => {
     const headers = {
       Authorization: `Token token="${response.curatedAPIConfig.apiKey}"`,
     };
 
     fetch(`https://api.curated.co/codetengu/api/v1/issues/${issueNumber}/`, { method: 'GET', headers })
+    .then(utils.checkHTTPStatus)
     .then((res) => {
       return res.json();
     })
     .then((curatedIssue) => {
-      console.log('CURATEDISSUE', curatedIssue);
-
       const twitter = new Twit({
         consumer_key: response.twitterAPIConfig.consumerKey,
         consumer_secret: response.twitterAPIConfig.consumerSecret,
@@ -41,6 +37,9 @@ exports.handle = (event, context, callback) => {
       twitter.post('statuses/update', payload, (err, data) => {
         callback(err, data);
       });
+    })
+    .catch((err) => {
+      callback(err);
     });
   });
 };
