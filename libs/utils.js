@@ -8,6 +8,27 @@ const lambda = new aws.Lambda({ apiVersion: '2015-03-31', region: 'ap-northeast-
 const dynamodb = new aws.DynamoDB({ apiVersion: '2012-08-10', region: 'ap-northeast-1' });
 const dynamodbClient = new aws.DynamoDB.DocumentClient({ service: dynamodb });
 
+function invokeLambdaFunction(funcName, payload) {
+  return new Promise((resolve, reject) => {
+    const params = {
+      FunctionName: funcName,
+      InvocationType: 'Event', // asynchronous execution
+      Payload: JSON.stringify(payload),
+    };
+
+    lambda.invoke(params, (err, data) => {
+      if (err) {
+        console.log('FAIL', params);
+        console.log(util.inspect(err));
+
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    });
+  });
+}
+
 function loadPreference(keys) {
   return new Promise((resolve, reject) => {
     const realKeys = [];
@@ -59,6 +80,7 @@ function checkHTTPStatus(response) {
 
 module.exports = {
   lambda,
+  invokeLambdaFunction,
   dynamodbClient,
   loadPreference,
   checkHTTPStatus,
