@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "node-fetch": "1.5.3",
+    "xmldom": "0.1.22",
+    "xpath": "0.0.23"
+  }
+}
