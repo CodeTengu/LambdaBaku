@@ -1,6 +1,6 @@
 {
   "name": "lambdabaku",
-  "description": "a CodeTengu project",
+  "description": "A CodeTengu project",
   "role": "arn:aws:iam::004615714446:role/lambdabaku_role",
   "runtime": "nodejs4.3",
   "memory": 512,
